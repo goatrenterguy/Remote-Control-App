@@ -34,7 +34,19 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     @IBOutlet weak var forwardButt: UIButton!
     @IBOutlet weak var backButt: UIButton!
     
+    //Control movement forwards and backwards
+    @IBAction func motorValueChanged(_ sender: Any) {
+        let message = "!M\(motorSlider.value)1"
+        let output = message.data(using: String.Encoding.utf8)
+        sendCrcData(output!)
+    }
     
+    //Turn motor
+    @IBAction func turningVlaueChanged(_ sender: Any) {
+        let message = "!S\(turningSlider.value)1"
+        let output = message.data(using: String.Encoding.utf8)
+        sendCrcData(output!)
+    }
     //Make UI elements exicute commands
     @IBAction func reconnectButtTouchedDown(_ sender: Any) {
         print("Disconnecting from all devices...")
@@ -67,7 +79,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         let output = message.data(using: String.Encoding.utf8)
         sendCrcData(output!)
     }
-    
+    //Send turn value when changed
+    @IBAction func turningSliderChanged(_ sender: Any) {
+        let message = "!S\(turningSlider.value)1"
+        let output = message.data(using: String.Encoding.utf8)
+               sendCrcData(output!)
+    }
     //Led switch toggled
     @IBAction func ledValueChanged(_ sender: Any) {
         var on = 0;
